@@ -51,7 +51,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.ui.res.painterResource
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {//master
         super.onCreate(savedInstanceState)
         setContent {
             CalculadoraTheme {
