@@ -35,18 +35,19 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.calculadora.R
 import java.text.NumberFormat
-
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 @Composable
-fun TipTimeLayout(viewModel: ViewModel = ViewModel()) {
-    val state by viewModel.uiState.collectAsState()
+fun TipTimeLayout(view: ViewModel = viewModel()) {
+    val state by view.uiState.collectAsState()
     var amountInput by remember { mutableStateOf("") }
     var tipInput by remember { mutableStateOf("") }
     val amount = amountInput.toDoubleOrNull() ?: 0.0
     val tipPercent = tipInput.toDoubleOrNull() ?: 0.0
     var roundUp by remember { mutableStateOf(false) }
-    val tip = calculateTip(amount, tipPercent, roundUp)
+    val tip = view.calculateTip(amount, tipPercent, roundUp)
+
     Column(
         modifier = Modifier
             .padding(40.dp)
@@ -100,17 +101,7 @@ fun TipTimeLayout(viewModel: ViewModel = ViewModel()) {
 }
 
 
-private fun calculateTip(
-    amount: Double,
-    tipPercent: Double = 15.0,
-    roundUp: Boolean
-): String {
-    var tip = tipPercent / 100 * amount
-    if (roundUp) {
-        tip = kotlin.math.ceil(tip)
-    }
-    return NumberFormat.getCurrencyInstance().format(tip)
-}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
